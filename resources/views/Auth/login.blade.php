@@ -20,5 +20,7 @@
         <br>
         <button type="submit">Entrar</button>
     </form>
+    <h3>Não possui cadastro ?</h3>
+    <a href="/cadastro">Se cadastrar</a>
 </body>
 </html>
