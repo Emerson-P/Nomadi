@@ -38,10 +38,31 @@ class AuthController extends Controller
             'endereco'          => $request->endereco,
             'passaporte'        => $request->passaporte,
             'email'             => $request->email,
-            'password'          => Hash::make($request->password), // nunca armazene senhas sem hash
+            'password'          => Hash::make($request->password), 
         ]);
 
         return redirect('/')->with('success', 'Cadastro realizado com sucesso!');
 
     }
+    
+    public function postlogin(Request $request){
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+           
+            return response()->json(['message' => 'Login bem-sucedido!']);
+        }
+
+        return redirect()->back()->withErrors([
+            'login' => 'Email ou senha incorretos.'
+        ]);
+    }
+    
 }

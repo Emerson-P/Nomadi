@@ -44,5 +44,6 @@
 
     </form>
     
+    <a href="/">Ja tem uma conta ?</a>
 </body>
 </html>
