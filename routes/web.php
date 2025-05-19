@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\app;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/',[AuthController::class, 'getLogin'] )->name('getLogin');
+Route::get('/',[app::class, 'getIndex'] )->name('getIndex');
+Route::get('/alta',[app::class, 'getAlta'] )->name('getAlta');
 
 Route::get('/cadastro',[AuthController::class, 'getCadastro'] )->name('getCadastro');
 
