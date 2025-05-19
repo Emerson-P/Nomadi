@@ -58,8 +58,7 @@ class AuthController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
            
             return response()->json(['message' => 'Login bem-sucedido!']);
-        }
-
+        } 
         return redirect()->back()->withErrors([
             'login' => 'Email ou senha incorretos.'
         ]);
