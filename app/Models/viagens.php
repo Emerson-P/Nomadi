@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DestinosTuristico extends Model
+class viagens extends Model
 {
     protected $fillable = [
         'nome',

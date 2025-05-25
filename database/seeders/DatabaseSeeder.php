@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('destinos_turisticos')->insert([
+        DB::table('viagens')->insert([
             [
                 'nome' => 'Rio de Janeiro',
                 'localizacao' => 'Rio de Janeiro, Brasil',

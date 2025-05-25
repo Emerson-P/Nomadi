@@ -17,6 +17,6 @@ Route::post('/login',[AuthController::class, 'postLogin'] )->name('postLogin');
 
 Route::middleware(['auth'])->group(function(){
 
-    Route::post('/favoritos',[app::class, 'postFavorito'] )->name('postFavorito');
+    Route::post('/favoritos/{id}',[app::class, 'postFavorito'] )->name('postFavorito');
 
 });
