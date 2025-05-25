@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -41,7 +42,7 @@ class AuthController extends Controller
             'password'          => Hash::make($request->password), 
         ]);
 
-        return redirect('/')->with('success', 'Cadastro realizado com sucesso!');
+        return redirect('/login')->with('success', 'Cadastro realizado com sucesso!');
 
     }
     
@@ -51,17 +52,18 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+        $credentials = $request->only('email', 'password');
 
+        if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+        return redirect()->intended();
+        }
 
-        $user = User::where('email', $request->email)->first();
-
-        if ($user && Hash::check($request->password, $user->password)) {
-           
-            return response()->json(['message' => 'Login bem-sucedido!']);
-        } 
-        return redirect()->back()->withErrors([
-            'login' => 'Email ou senha incorretos.'
+        // Login falhou
+        return back()->withErrors([
+            'email' => 'As credenciais estão incorretas.',
         ]);
+        
     }
     
 }

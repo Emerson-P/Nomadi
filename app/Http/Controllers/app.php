@@ -14,4 +14,6 @@ class app extends Controller
         $destinos = DestinosTuristico::all(); // Busca todos os registros
         return view('App.alta',compact('destinos'));
     }
+
+
 }

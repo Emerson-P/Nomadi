@@ -22,6 +22,13 @@
             @if ($destino->caminho_fotos)
                 <img src="{{ asset($destino->caminho_fotos) }}" alt="{{ $destino->nome }}" style="max-width: 300px;">
             @endif
+
+            <form action="/favoritos" method="post">
+                @csrf
+                <button type="submit">
+                    Coração
+                </button>
+            </form>
         </div>
     @endforeach
 

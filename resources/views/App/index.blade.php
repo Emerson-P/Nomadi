@@ -6,6 +6,6 @@
 </head>
 <body>
     <h1>index</h1>
-    <a href="/alta">Viagens em Alta</a>
+    <a href="/alta">alta</a>
 </body>
 </html>
