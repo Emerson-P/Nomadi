@@ -19,18 +19,43 @@
             <p><strong>Ida:</strong> {{ \Carbon\Carbon::parse($destino->dia_horario_ida)->format('d/m/Y H:i') }}</p>
             <p><strong>Volta:</strong> {{ \Carbon\Carbon::parse($destino->dia_horario_volta)->format('d/m/Y H:i') }}</p>
 
-            @if ($destino->caminho_fotos)
+            <!-- @if ($destino->caminho_fotos)
                 <img src="{{ asset($destino->caminho_fotos) }}" alt="{{ $destino->nome }}" style="max-width: 300px;">
-            @endif
+            @endif -->
 
-            <form action="{{ route('postFavorito', $destino->id) }}" method="post">
-                @csrf
-                <button type="submit">
-                    Coração
-                </button>
-            </form>
+
+            @if (!empty($favoritos) == false)
+                @foreach ($favoritos as $favorito )
+                    @if ($destino->id == $favorito->viagens_id)
+                        <form action="{{ route('postRemoveFavorito', $favorito->id) }}" method="post">
+                            @csrf
+                            <button type="submit">
+                                Remover Coração
+                            </button>
+                        </form>
+                        @break
+                    @else
+                        <form action="{{ route('postAddFavorito', $destino->id) }}" method="post">
+                            @csrf
+                            <button type="submit">
+                                Adiconar Coração
+                            </button>
+                        </form>
+                    @endif
+                @endforeach
+            @else
+                <form action="{{ route('postAddFavorito', $destino->id) }}" method="post">
+                    @csrf
+                    <button type="submit">
+                        Adiconar Coração
+                    </button>
+                </form>
+
+            @endif
+      
         </div>
     @endforeach
 
+    
 </body>
 </html>

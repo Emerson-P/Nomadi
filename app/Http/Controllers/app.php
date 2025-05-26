@@ -12,10 +12,12 @@ class app extends Controller
         return view('App.index');
     }
     public function getAlta(){
-        $destinos = viagens::all(); // Busca todos os registros
-        return view('App.alta',compact('destinos'));
+        $destinos = viagens::all();
+        $favoritos = favoritos::where('user_id', Auth::id())->get();
+
+        return view('App.alta',compact('destinos','favoritos'));
     }
-    public function postFavorito($id){
+    public function postAddFavorito($id){
         $userId = Auth::id();
      
         favoritos::create([
@@ -26,4 +28,8 @@ class app extends Controller
         return back()->with('success', 'Viagem favoritada!');
     }
 
+    public function postRemoveFavorito($id){
+        favoritos::destroy($id);
+        return back()->with('success', 'Viagem desfavoritada!');
+    }
 }
