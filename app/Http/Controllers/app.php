@@ -13,10 +13,11 @@ class app extends Controller
         return view('App.index');
     }
     public function getAlta(){
+        $userId = Auth::id();
         $destinos = viagens::all();
-        $favoritos = favoritos::where('user_id', Auth::id())->get();
-
-        return view('App.alta',compact('destinos','favoritos'));
+        $favoritos = favoritos::where('user_id', $userId)->get();
+        $carrinhos = carrinho::where('user_id', $userId)->get();
+        return view('App.alta',compact('destinos','favoritos','carrinhos'));
     }
     public function postAddFavorito($id){
         $userId = Auth::id();

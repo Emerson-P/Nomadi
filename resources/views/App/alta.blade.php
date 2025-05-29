@@ -23,26 +23,24 @@
                 <img src="{{ asset($destino->caminho_fotos) }}" alt="{{ $destino->nome }}" style="max-width: 300px;">
             @endif -->
 
-
-            @if (!empty($favoritos) == false)
-                @foreach ($favoritos as $favorito )
-                    @if ($destino->id == $favorito->viagens_id)
-                        <form action="{{ route('postRemoveFavorito', $favorito->id) }}" method="post">
-                            @csrf
-                            <button type="submit">
-                                Remover Coração
-                            </button>
-                        </form>
-                        @break
-                    @else
-                        <form action="{{ route('postAddFavorito', $destino->id) }}" method="post">
-                            @csrf
-                            <button type="submit">
-                                Adiconar Coração
-                            </button>
-                        </form>
-                    @endif
-                @endforeach
+            @php
+            $index = 0
+            @endphp   
+            @foreach ($favoritos as $favorito )
+                @if ($destino->id == $favorito->viagens_id)
+                     @php
+                        $index = 1
+                    @endphp     
+                    @break
+                @endif
+            @endforeach
+            @if ($index == 1 )
+                <form action="{{ route('postRemoveFavorito', $favorito->id) }}" method="post">
+                    @csrf
+                    <button type="submit">
+                        Remover Coração
+                    </button>
+                </form>
             @else
                 <form action="{{ route('postAddFavorito', $destino->id) }}" method="post">
                     @csrf
@@ -50,16 +48,30 @@
                         Adiconar Coração
                     </button>
                 </form>
-
             @endif
 
-            <form action="{{ route('postAddCarrinho', $destino->id) }}" method="post">
-                @csrf
-                <button type="submit">
-                    Add Carrinho
-                </button>
-            </form>
-      
+          
+            @php
+            $index = 0
+            @endphp   
+            @foreach ($carrinhos as $carrinho )
+                @if ($destino->id == $carrinho->viagens_id)
+                     @php
+                        $index = 1
+                    @endphp     
+                    @break
+                @endif
+            @endforeach
+            @if ($index == 1 )
+               <a href="/carrinho">carrinho</a>
+            @else
+                <form action="{{ route('postAddCarrinho', $destino->id) }}" method="post">
+                    @csrf
+                    <button type="submit">
+                        Add Carrinho
+                    </button>
+                </form>
+            @endif
         </div>
     @endforeach
 </body>
