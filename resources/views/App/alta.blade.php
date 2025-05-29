@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Destinos Turísticos</h1>
-
+    <a href="/">Voltar</a>
     @foreach ($destinos as $destino)
         <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
             <h2>{{ $destino->nome }}</h2>
@@ -52,10 +52,15 @@
                 </form>
 
             @endif
+
+            <form action="{{ route('postAddCarrinho', $destino->id) }}" method="post">
+                @csrf
+                <button type="submit">
+                    Add Carrinho
+                </button>
+            </form>
       
         </div>
     @endforeach
-
-    
 </body>
 </html>

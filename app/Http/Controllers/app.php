@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\carrinho;
 use App\Models\favoritos;
 use App\Models\viagens;
 use Illuminate\Support\Facades\Auth;
@@ -32,4 +33,20 @@ class app extends Controller
         favoritos::destroy($id);
         return back()->with('success', 'Viagem desfavoritada!');
     }
+
+    public function getCarrinho(){
+        return view('app.carrinho');
+    }
+
+    public function postAddCarrinho($id){
+        $userId = Auth::id();
+     
+        carrinho::create([
+            'user_id' => $userId ,
+            'viagens_id' => $id,
+            'quantidade' => 1
+        ]);
+        return back()->with('success', 'Viagem adiconada ao carrinho!');
+    }
+    
 }
