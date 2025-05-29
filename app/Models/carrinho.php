@@ -12,5 +12,8 @@ class carrinho extends Model
         'viagens_id',
         'quantidade'
     ];
-
+    public function viagem()
+    {
+         return $this->belongsTo(viagens::class,'viagens_id');
+    }
 }

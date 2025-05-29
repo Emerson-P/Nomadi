@@ -7,7 +7,7 @@ use App\Models\favoritos;
 use App\Models\viagens;
 use Illuminate\Support\Facades\Auth;
 
-class app extends Controller
+class AppController extends Controller
 {
     public function getIndex(){
         return view('App.index');
@@ -36,9 +36,14 @@ class app extends Controller
     }
 
     public function getCarrinho(){
-        return view('app.carrinho');
+        $userId = Auth::id();
+        
+        $carrinhos = Carrinho::with(['viagem' => function ($q) {
+            $q->select('id','nome','descricao','precos');
+        }])->where('user_id', $userId)->get();
+      
+        return view('app.carrinho',compact('carrinhos'));
     }
-
     public function postAddCarrinho($id){
         $userId = Auth::id();
      
