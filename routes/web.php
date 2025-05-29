@@ -21,4 +21,5 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/removeFavoritos/{id}',[AppController::class, 'postRemoveFavorito'] )->name('postRemoveFavorito');
     Route::get('/carrinho',[AppController::class, 'getCarrinho'] )->name('getCarrinho');
     Route::post('/addCarrinho/{id}',[AppController::class, 'postAddCarrinho'] )->name('postAddCarrinho');
+    Route::post('/removeCarrinho/{id}',[AppController::class, 'postRemoveCarrinho'] )->name('postRemoveCarrinho');
 });

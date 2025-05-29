@@ -14,6 +14,14 @@
     <h3>{{ $carrinho->viagem->descricao }}</h3>
     <h3>{{ $carrinho->viagem->precos }}</h3>
     <h3>{{ $carrinho->quantidade }}</h3>
+    <h3>id {{ $carrinho->viagem->id}}</h3>
+    <form action="{{ route('postRemoveCarrinho', $carrinho->viagem->id) }}" method="post">
+        @csrf
+        <button type="submit">
+            Remover viagem
+        </button>
+    </form>
+
     </div>
     @endforeach
 </body>

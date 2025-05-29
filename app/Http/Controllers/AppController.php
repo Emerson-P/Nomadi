@@ -55,4 +55,9 @@ class AppController extends Controller
         return back()->with('success', 'Viagem adiconada ao carrinho!');
     }
     
+    public function postRemoveCarrinho($id){
+        carrinho::destroy($id);
+        return back()->with('success', 'Viagem desfavoritada!');
+
+    }
 }
