@@ -1,28 +1,142 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Destinos Turísticos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Principais Viagens - TravelSite</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+
+    header {
+      background-color: #14213D;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: #FCA311;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .search-bar input {
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #FCA311;
+    }
+
+    main {
+      padding: 2rem;
+      background-color: #E5E5E5;
+    }
+
+    .trip-destination {
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .trip-destination img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .trip-details {
+      padding: 1rem;
+    }
+
+    .trip-details h2 {
+      color: #14213D;
+      margin-bottom: 0.5rem;
+    }
+
+    .trip-details p {
+      margin: 0.3rem 0;
+    }
+
+    .trip-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .trip-actions button {
+      padding: 0.5rem 1rem;
+      background-color: #FCA311;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .trip-actions button:hover {
+      background-color: #e1900f;
+    }
+  </style>
 </head>
 <body>
-    <h1>Destinos Turísticos</h1>
-    <a href="/">Voltar</a>
-    @foreach ($destinos as $destino)
-        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+  <header>
+    <div class="logo">TravelSite</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Pesquisar destinos...">
+    </div>
+    <nav>
+      <a href="/alta">Principais viagens</a>
+      <a href="/">Viagens favoritas</a>
+      <a href="/carrinho">Carrinho</a>
+      <a href="#quemsomos">Quem somos</a>
+    </nav>
+  </header>
+
+  <main>
+
+    @foreach ($destinos as $destino )
+    <div class="trip-destination">
+
+    <!-- <img src="assets/imagens/praia-tropical.jpg" alt="Praia Tropical"> -->
+        <div class="trip-details">
+
             <h2>{{ $destino->nome }}</h2>
             <p><strong>Localização:</strong> {{ $destino->localizacao }}</p>
             <p><strong>Descrição:</strong> {{ $destino->descricao }}</p>
-            <p><strong>Atrações:</strong> {{ $destino->atracoes_turisticas }}</p>
+            <p><strong>Atrações:</strong> {{ $destino->atracoes_turisticas }} </p>
             <p><strong>Preço:</strong> R$ {{ number_format($destino->precos, 2, ',', '.') }}</p>
             <p><strong>Hotéis:</strong> {{ $destino->hoteis }}</p>
-            <p><strong>Pacotes:</strong> {{ $destino->pacotes_promocionais }}</p>
-            <p><strong>Ida:</strong> {{ \Carbon\Carbon::parse($destino->dia_horario_ida)->format('d/m/Y H:i') }}</p>
-            <p><strong>Volta:</strong> {{ \Carbon\Carbon::parse($destino->dia_horario_volta)->format('d/m/Y H:i') }}</p>
+            <p><strong>Pacotes:</strong>  {{ $destino->pacotes_promocionais }}</p>
+            <p><strong>Ida: </strong> {{ \Carbon\Carbon::parse($destino->dia_horario_ida)->format('d/m/Y H:i') }}</p>
+            <p><strong>Volta: </strong>{{ \Carbon\Carbon::parse($destino->dia_horario_volta)->format('d/m/Y H:i') }}</p>
 
-            <!-- @if ($destino->caminho_fotos)
-                <img src="{{ asset($destino->caminho_fotos) }}" alt="{{ $destino->nome }}" style="max-width: 300px;">
-            @endif -->
-
+        </div>
+        <div class="trip-actions">
             @php
             $index = 0
             @endphp   
@@ -73,6 +187,9 @@
                 </form>
             @endif
         </div>
+        </div>
     @endforeach
+    </div>
+  </main>
 </body>
 </html>

@@ -38,11 +38,13 @@ class AppController extends Controller
     public function getCarrinho(){
         $userId = Auth::id();
         
-        $carrinhos = Carrinho::with(['viagem' => function ($q) {
-            $q->select('id','nome','descricao','precos');
-        }])->where('user_id', $userId)->get();
-      
-        return view('app.carrinho',compact('carrinhos'));
+        $favoritos = favoritos::where('user_id', $userId)->get();
+        // $carrinhos = carrinho::where('user_id', $userId)->get();
+        $carrinhos = Carrinho::with('viagem')  
+        ->where('user_id', $userId)  
+        ->get();
+
+        return view('app.carrinho',compact('carrinhos','favoritos'));
     }
     public function postAddCarrinho($id){
         $userId = Auth::id();
