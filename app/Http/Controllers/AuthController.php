@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -32,7 +33,7 @@ class AuthController extends Controller
 
         User::create([
             'nome_completo'     => $request->nome_completo,
-            'data_nascimento'   => $request->data_nascimento,
+            'data_nascimento'   => Carbon::createFromFormat('d/m/Y', $request->data_nascimento)->format('Y-m-d'),
             'nacionalidade'     => $request->nacionalidade,
             'telefone'          => $request->telefone,
             'cpf'               => $request->cpf,

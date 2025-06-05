@@ -1,4 +1,3 @@
 Revisar ortografia 
-Mudar route / para pagina inicial do aplicativo e pedir login apenas em compras etc...
-Adionar dupla confirmação de senha no cadatro
-Autenticar usuario
+Adiconar imagens de viagens 
+Complemnetar tetxo index

@@ -6,6 +6,14 @@
   <title>Nomadi - Página Inicial</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #FCA311;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -88,9 +96,10 @@
 <body>
   <header>
     <div class="logo">Nomadi</div>
-    <div class="search-bar">
-      <input type="text" placeholder="Pesquisar destinos...">
-    </div>
+    <form action="{{ route('getPesquisa') }}" method="GET" class="search-bar">
+        <input type="text" name="busca" placeholder="Pesquisar viagens..." required>
+        <button type="submit">Buscar</button>
+    </form>
     <nav>
       <a href="/alta">Principais viagens</a>
       <a href="/favoritos">Viagens favoritas</a>

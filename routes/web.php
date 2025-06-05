@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[AppController::class, 'getIndex'] )->name('getIndex');
 Route::get('/alta',[AppController::class, 'getAlta'] )->name('getAlta');
 Route::get('/quemSomos',[AppController::class, 'getQuemSomos'] )->name('getQuemSomos');
+Route::get('/pesquisa',[AppController::class, 'getPesquisa'] )->name('getPesquisa');
 
 Route::get('/cadastro',[AuthController::class, 'getCadastro'] )->name('getCadastro');
 Route::get('/login',[AuthController::class, 'getLogin'] )->name('login');

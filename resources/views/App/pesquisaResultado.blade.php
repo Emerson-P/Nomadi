@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Principais Viagens - Nomadi</title>
+  <title>Resultados da Pesquisa - TravelSite</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
     body {
@@ -55,34 +55,40 @@
       background-color: #E5E5E5;
     }
 
-    .trip-destination {
+    .search-title {
+      margin-bottom: 2rem;
+      color: #14213D;
+    }
+
+    .search-result {
       background-color: #FFFFFF;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
     }
 
-    .trip-destination img {
+    .search-result img {
       width: 100%;
       height: auto;
       object-fit: cover;
     }
 
-    .trip-details {
+    .result-info {
       padding: 1rem;
     }
 
-    .trip-details h2 {
+    .result-info h3 {
       color: #14213D;
       margin-bottom: 0.5rem;
     }
 
-    .trip-details p {
-      margin: 0.3rem 0;
+    .result-info p {
+      margin: 0.25rem 0;
     }
-
-    .trip-actions {
+     .trip-actions {
       display: flex;
       justify-content: flex-end;
       gap: 1rem;
@@ -101,6 +107,7 @@
     .trip-actions button:hover {
       background-color: #e1900f;
     }
+
     button {
       padding: 0.5rem 1rem;
       background-color: #FCA311;
@@ -113,13 +120,16 @@
 </head>
 <body>
   <header>
-    <div class="logo">Nomadi</div>
+    <div class="logo">TravelSite</div>
+    
+    
     <form action="{{ route('getPesquisa') }}" method="GET" class="search-bar">
         <input type="text" name="busca" placeholder="Pesquisar viagens..." required>
         <button type="submit">Buscar</button>
     </form>
+
     <nav>
-      <a href="/alta"style="color: #FCA311;">Principais viagens</a>
+      <a href="/">Principais viagens</a>
       <a href="/favoritos">Viagens favoritas</a>
       <a href="/carrinho">Carrinho</a>
       <a href="/quemSomos">Quem somos</a>
@@ -127,30 +137,24 @@
   </header>
 
   <main>
+    <h2 class="search-title">Resultados para "{{ $termo }}"</h2>
 
-    @foreach ($destinos as $destino )
-    <div class="trip-destination">
+    @foreach ($viagens as $viagen )
 
-    <!-- <img src="assets/imagens/praia-tropical.jpg" alt="Praia Tropical"> -->
-        <div class="trip-details">
-
-            <h2>{{ $destino->nome }}</h2>
-            <p><strong>Localização:</strong> {{ $destino->localizacao }}</p>
-            <p><strong>Descrição:</strong> {{ $destino->descricao }}</p>
-            <p><strong>Atrações:</strong> {{ $destino->atracoes_turisticas }} </p>
-            <p><strong>Preço:</strong> R$ {{ number_format($destino->precos, 2, ',', '.') }}</p>
-            <p><strong>Hotéis:</strong> {{ $destino->hoteis }}</p>
-            <p><strong>Pacotes:</strong>  {{ $destino->pacotes_promocionais }}</p>
-            <p><strong>Ida: </strong> {{ \Carbon\Carbon::parse($destino->dia_horario_ida)->format('d/m/Y H:i') }}</p>
-            <p><strong>Volta: </strong>{{ \Carbon\Carbon::parse($destino->dia_horario_volta)->format('d/m/Y H:i') }}</p>
-
-        </div>
-        <div class="trip-actions">
+        <div class="search-result">
+            <img src="assets/imagens/praia1.jpg" alt="Praia 1">
+            <div class="result-info">
+                <h3>{{ $viagen->nome }}</h3>
+                <p>Localização: {{ $viagen->localizacao }}</p>
+                <p>Pacote: {{ $viagen->pacotes_promocionais }}</p>
+                <p>Preço: {{ $viagen->precos }}</p>
+            </div>
+            <div class="trip-actions">
             @php
             $index = 0
             @endphp   
             @foreach ($favoritos as $favorito )
-                @if ($destino->id == $favorito->viagens_id)
+                @if ($viagen->id == $favorito->viagens_id)
                      @php
                         $index = 1
                     @endphp     
@@ -165,7 +169,7 @@
                     </button>
                 </form>
             @else
-                <form action="{{ route('postAddFavorito', $destino->id) }}" method="post">
+                <form action="{{ route('postAddFavorito', $viagen->id) }}" method="post">
                     @csrf
                     <button type="submit">
                         Adiconar Coração
@@ -178,7 +182,7 @@
             $index = 0
             @endphp   
             @foreach ($carrinhos as $carrinho )
-                @if ($destino->id == $carrinho->viagens_id)
+                @if ($viagen->id == $carrinho->viagens_id)
                      @php
                         $index = 1
                     @endphp     
@@ -188,7 +192,7 @@
             @if ($index == 1 )
                <a href="/carrinho">carrinho</a>
             @else
-                <form action="{{ route('postAddCarrinho', $destino->id) }}" method="post">
+                <form action="{{ route('postAddCarrinho', $viagen->id) }}" method="post">
                     @csrf
                     <button type="submit">
                         Add Carrinho
@@ -197,8 +201,11 @@
             @endif
         </div>
         </div>
+
     @endforeach
-    </div>
+    
+
+    
   </main>
 </body>
 </html>

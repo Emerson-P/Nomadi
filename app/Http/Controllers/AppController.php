@@ -6,7 +6,7 @@ use App\Models\carrinho;
 use App\Models\favoritos;
 use App\Models\viagens;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 class AppController extends Controller
 {
     public function getIndex(){
@@ -74,5 +74,15 @@ class AppController extends Controller
 
     public function getQuemSomos(){
         return view('app.quemSomos');
+    }
+
+    public function getPesquisa(Request $request)
+    {
+        $userId = Auth::id();
+        $favoritos = favoritos::where('user_id', $userId)->get();
+        $carrinhos = carrinho::where('user_id', $userId)->get();
+        $termo = $request->input('busca');
+        $viagens = Viagens::where('nome', 'like', '%' . $termo . '%')->get();
+        return view('app.pesquisaResultado', compact('viagens', 'termo','carrinhos','favoritos'));
     }
 }
