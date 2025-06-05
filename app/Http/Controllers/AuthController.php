@@ -20,14 +20,14 @@ class AuthController extends Controller
         
         $request->validate([
             'nome_completo'     => 'required|string|max:255',
-            'data_nascimento'   => 'required|date',
+            'data_nascimento'   => 'required|',
             'nacionalidade'     => 'required|string|max:100',
             'telefone'          => 'required|string|max:20',
             'cpf'               => 'required|string|max:20|unique:users,cpf',
             'endereco'          => 'required|string|max:255',
             'passaporte'        => 'nullable|string|max:20',
             'email'             => 'required|email|unique:users,email',
-            'password'          => 'required|min:6|max:20', // Use se quiser confirmação de senha
+            'password'          => 'required|min:6|max:20'
         ]);
 
         User::create([

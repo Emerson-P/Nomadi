@@ -110,39 +110,40 @@
       <input type="text" placeholder="Pesquisar destinos...">
     </div>
     <nav>
-      <a href="/alta"style="color: #FCA311;">Principais viagens</a>
-      <a href="/favoritos">Viagens favoritas</a>
+      <a href="/alta">Principais viagens</a>
+      <a href="/favoritos" style="color: #FCA311;">Viagens favoritas</a>
       <a href="/carrinho">Carrinho</a>
       <a href="/quemSomos">Quem somos</a>
     </nav>
   </header>
 
   <main>
-
-    @foreach ($destinos as $destino )
+    <!-- {{ $favoritos }} -->
+    @foreach ($favoritos as $destino )
     <div class="trip-destination">
 
     <!-- <img src="assets/imagens/praia-tropical.jpg" alt="Praia Tropical"> -->
         <div class="trip-details">
-
-            <h2>{{ $destino->nome }}</h2>
-            <p><strong>Localização:</strong> {{ $destino->localizacao }}</p>
-            <p><strong>Descrição:</strong> {{ $destino->descricao }}</p>
-            <p><strong>Atrações:</strong> {{ $destino->atracoes_turisticas }} </p>
-            <p><strong>Preço:</strong> R$ {{ number_format($destino->precos, 2, ',', '.') }}</p>
-            <p><strong>Hotéis:</strong> {{ $destino->hoteis }}</p>
-            <p><strong>Pacotes:</strong>  {{ $destino->pacotes_promocionais }}</p>
-            <p><strong>Ida: </strong> {{ \Carbon\Carbon::parse($destino->dia_horario_ida)->format('d/m/Y H:i') }}</p>
-            <p><strong>Volta: </strong>{{ \Carbon\Carbon::parse($destino->dia_horario_volta)->format('d/m/Y H:i') }}</p>
-
+            
+            <h2>{{ $destino->viagem->nome }}</h2>
+            <p><strong>Localização:</strong> {{ $destino->viagem->localizacao }}</p>
+            <p><strong>Descrição:</strong> {{ $destino->viagem->descricao }}</p>
+            <p><strong>Atrações:</strong> {{ $destino->viagem->atracoes_turisticas }} </p>
+            <p><strong>Preço:</strong> R$ {{ number_format($destino->viagem->precos, 2, ',', '.') }}</p>
+            <p><strong>Hotéis:</strong> {{ $destino->viagem->hoteis }}</p>
+            <p><strong>Pacotes:</strong>  {{ $destino->viagem->pacotes_promocionais }}</p>
+            <p><strong>Ida: </strong> {{ \Carbon\Carbon::parse($destino->viagem->dia_horario_ida)->format('d/m/Y H:i') }}</p>
+            <p><strong>Volta: </strong>{{ \Carbon\Carbon::parse($destino->viagem->dia_horario_volta)->format('d/m/Y H:i') }}</p>
         </div>
         <div class="trip-actions">
             @php
             $index = 0
             @endphp   
             @foreach ($favoritos as $favorito )
-                @if ($destino->id == $favorito->viagens_id)
+          
+                @if ($destino->viagens_id == $favorito->viagens_id)
                      @php
+                        
                         $index = 1
                     @endphp     
                     @break
@@ -164,7 +165,6 @@
                 </form>
             @endif
 
-          
             @php
             $index = 0
             @endphp   

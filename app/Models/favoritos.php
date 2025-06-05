@@ -11,5 +11,8 @@ class favoritos extends Model
         'user_id',
         'viagens_id'
     ];
-
+    public function viagem()
+    {
+         return $this->belongsTo(viagens::class,'viagens_id');
+    }
 }

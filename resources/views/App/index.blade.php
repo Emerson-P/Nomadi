@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TravelSite - Página Inicial</title>
+  <title>Nomadi - Página Inicial</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
     body {
@@ -87,15 +87,15 @@
 </head>
 <body>
   <header>
-    <div class="logo">TravelSite</div>
+    <div class="logo">Nomadi</div>
     <div class="search-bar">
       <input type="text" placeholder="Pesquisar destinos...">
     </div>
     <nav>
       <a href="/alta">Principais viagens</a>
-      <a href="#favoritas">Viagens favoritas</a>
+      <a href="/favoritos">Viagens favoritas</a>
       <a href="/carrinho">Carrinho</a>
-      <a href="#quemsomos">Quem somos</a>
+      <a href="/quemSomos">Quem somos</a>
     </nav>
   </header>
   <main>

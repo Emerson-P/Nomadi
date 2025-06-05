@@ -62,4 +62,17 @@ class AppController extends Controller
         return back()->with('success', 'Viagem desfavoritada!');
 
     }
+    public function getFavoritos(){
+        $userId = Auth::id();
+
+        $favoritos = favoritos::with('viagem')  
+        ->where('user_id', $userId)  
+        ->get();
+        $carrinhos = carrinho::where('user_id', $userId)->get();
+        return view('app.favoritos',compact('favoritos','carrinhos'));
+    }
+
+    public function getQuemSomos(){
+        return view('app.quemSomos');
+    }
 }
